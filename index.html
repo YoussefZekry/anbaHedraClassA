@@ -146,9 +146,37 @@
                 print-color-adjust: exact;
             }
         }
+        .verse-header {
+            text-align: center;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #26a69a;
+            background-color: #e0f7fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .verse-header p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        @media print {
+            .verse-header {
+                background-color: #e0f7fa !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="verse-header">
+        <p>مُقَدِّمًا فِي التَّعْلِيمِ نَقَاوَةً، وَوَقَارًا، وَإِخْلاَصًا، وَكَلاَمًا صَحِيحًا غَيْرَ مَلُومٍ (تي 2: 7-8)</p>
+    </div>
     <div class="container">
         <!-- First Card with QR Code and Modal Button -->
         <div class="card">
