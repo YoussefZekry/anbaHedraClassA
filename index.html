@@ -1,303 +1,169 @@
-<script type="text/javascript">
-    var gk_isXlsx = false;
-    var gk_xlsxFileLookup = {};
-    var gk_fileData = {};
-    function filledCell(cell) {
-        return cell !== '' && cell != null;
-    }
-    function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                    row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                    headerRowIndex = 0;
-                }
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-    }
-</script>
 <!DOCTYPE html>
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
     <title>2025 Agenda</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-     <style>
-    body {
-        font-family: 'Tajawal', sans-serif;
-        margin: 30px;
-        background-color: #f5f7fa;
-        direction: rtl;
-        text-align: right;
-    }
-    #agenda-section, #sheets-section {
-        display: none;
-    }
-    #agenda-section.active, #sheets-section.active {
-        display: block;
-    }
-    #sheets-section {
-        margin: 0;
-        width: 100%;
-    }
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 25px;
-        justify-content: center;
-    }
-    .button-container {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        margin-bottom: 25px;
-    }
-    #sheets-section .button-container {
-        flex-direction: column;
-        align-items: stretch;
-        width: 100%;
-        margin: 0;
-        height: calc(100vh - 70px);
-        min-height: 0;
-    }
-    .button-container a {
-        display: inline-block;
-        padding: 15px 30px;
-        background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
-        border: 2px solid #d81b60;
-        border-radius: 10px;
-        color: #d81b60;
-        font-size: 18px;
-        font-weight: 700;
-        text-decoration: none;
-        text-align: center;
-        white-space: nowrap;
-        min-width: 120px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: all 0.2s ease;
-    }
-    .button-container a:hover {
-        transform: scale(1.05);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        background: linear-gradient(135deg, #d1f0f4 0%, #f5f5f5 100%);
-    }
-    #sheets-section .button-container a {
-        flex: 1;
-        width: 100%;
-        margin: 5px 0;
-        background: linear-gradient(135deg, #d1f0f4 0%, #f5f5f5 100%);
-        border: 2px solid #d81b60;
-        border-radius: 5px;
-        color: #d81b60;
-        font-weight: 700;
-        text-decoration: none;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        transition: all 0.2s ease;
-    }
-    #sheets-section .button-container a:hover {
-        transform: scale(1.03);
-        background: linear-gradient(135deg, #b2e8ec 0%, #e0e0e0 100%);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
-    .card {
-        background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
-        border: 1px solid #b0bec5;
-        border-radius: 15px;
-        padding: 20px;
-        width: 350px;
-        min-height: 250px;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s ease-in-out;
-    }
-    .card:hover {
-        transform: translateY(-5px);
-    }
-    .card.playground {
-        background: linear-gradient(135deg, #26a69a 0%, #ffffff 100%);
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-    }
-    .date-header {
-        background-color: #26a69a;
-        color: white;
-        padding: 10px;
-        border-radius: 10px 10px 0 0;
-        margin: -20px -20px 15px -20px;
-        font-size: 20px;
-        font-weight: 700;
-        text-align: center;
-    }
-    .date-header::before {
-        content: '📅 ';
-        font-size: 18px;
-    }
-    .title {
-        font-size: 18px;
-        color: #d81b60;
-        font-weight: 700;
-        margin-bottom: 15px;
-    }
-    .playground .title {
-        font-size: 28px;
-        color: #d81b60;
-        font-weight: 700;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        justify-content: center;
-    }
-    .playground .title span {
-        font-size: 34px;
-    }
-    .description {
-        font-size: 16px;
-        color: #37474f;
-        line-height: 1.6;
-    }
-    .description ul {
-        padding-right: 20px;
-        margin: 0;
-    }
-    .description li {
-        margin-bottom: 8px;
-    }
-    .verse-header {
-        text-align: center;
-        font-family: 'Tajawal', sans-serif;
-        font-size: 20px;
-        font-weight: 700;
-        color: #26a69a;
-        background-color: #e0f7fa;
-        padding: 15px;
-        border-radius: 10px;
-        margin-bottom: 25px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        position: relative;
-    }
-    #sheets-section .verse-header {
-        margin: 0;
-        width: 100%;
-        border-radius: 0;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .verse-header p {
-        margin: 0;
-        line-height: 1.5;
-    }
-   .verse-header .back-button {
-        position: absolute;
-        left: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        padding: 10px 15px;
-        background: #26a69a;
-        /* border: 2px solid #d81b60; */
-        border-radius: 8px;
-        color: #ffffff;
-        font-size: 16px;
-        font-weight: 700;
-        cursor: pointer;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: all 0.2s ease;
-        text-align: center;
-        white-space: nowrap;
-    }
-    .verse-header .back-button:hover {
-        transform: translateY(-50%) scale(1.05);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        background: linear-gradient(135deg, #d1f0f4 0%, #f5f5f5 100%);
-    }
-    @media screen and (max-width: 1024px) {
+    <style>
         body {
-            margin: 0;
+            font-family: 'Tajawal', sans-serif;
+            margin: 30px;
+            background-color: #f5f7fa;
+            direction: rtl;
+            text-align: right;
         }
-        .button-container a {
-            padding: 12px 20px;
-            font-size: 16px;
-            min-width: 100px;
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
         }
-        #sheets-section .button-container a {
-            padding: 15px 20px !important;
-            font-size: 34px !important;
-            line-height: 1.2 !important;
-            min-height: 70px !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 25px;
         }
-        #sheets-section .button-container {
-            height: calc(100vh - 60px);
-        }
-        .verse-header .back-button {
-            padding: 8px 12px;
-            font-size: 14px;
-        }
-        #sheets-section .verse-header {
-            padding: 10px;
-        }
-    }
-    @media print {
-        body {
-            background-color: white;
-            margin: 10mm;
-        }
+       .button-container a {
+    display: inline-block;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
+    border: 2px solid #d81b60;
+    border-radius: 10px;
+    color: #d81b60;
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+.button-container a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #d1f0f4 0%, #f5f5f5 100%);
+}
         .card {
-            background: none;
-            border: 1px solid #000;
-            box-shadow: none;
-            page-break-inside: avoid;
-        }
-        .card.playground {
-            background: none;
-            border: 1px solid #000;
+            background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
+            border: 1px solid #b0bec5;
+            border-radius: 15px;
+            padding: 20px;
+            width: 350px;
+            min-height: 250px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
         }
         .card:hover {
-            transform: none;
+            transform: translateY(-5px);
+        }
+        .card.playground {
+            background: linear-gradient(135deg, #26a69a 0%, #ffffff 100%);
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
         }
         .date-header {
-            background-color: #26a69a !important;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
+            background-color: #26a69a;
+            color: white;
+            padding: 10px;
+            border-radius: 10px 10px 0 0;
+            margin: -20px -20px 15px -20px;
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+        }
+        .date-header::before {
+            content: '📅 ';
+            font-size: 18px;
+        }
+        .title {
+            font-size: 18px;
+            color: #d81b60;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .playground .title {
+            font-size: 28px;
+            color: #d81b60;
+            font-weight: 700;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+        .playground .title span {
+            font-size: 34px;
+        }
+        .description {
+            font-size: 16px;
+            color: #37474f;
+            line-height: 1.6;
+        }
+        .description ul {
+            padding-right: 20px;
+            margin: 0;
+        }
+        .description li {
+            margin-bottom: 8px;
+        }
+        @media print {
+            body {
+                background-color: white;
+                margin: 10mm;
+            }
+            .card {
+                background: none;
+                border: 1px solid #000;
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+            .card.playground {
+                background: none;
+                border: 1px solid #000;
+            }
+            .card:hover {
+                transform: none;
+            }
+            .date-header {
+                background-color: #26a69a !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .verse-header {
+                background-color: #e0f7fa !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
         }
         .verse-header {
-            background-color: #e0f7fa !important;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
+            text-align: center;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #26a69a;
+            background-color: #e0f7fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        .button-container a, .verse-header .back-button {
-            background: none;
-            border: 1px solid #d81b60;
-            box-shadow: none;
+        .verse-header p {
+            margin: 0;
+            line-height: 1.5;
         }
-    }
-</style>
+    </style>
 </head>
 <body>
-    <div id="agenda-section" class="active">
+ <div id="agenda-section">
         <div class="verse-header">
             <p>مُقَدِّمًا فِي التَّعْلِيمِ نَقَاوَةً، وَوَقَارًا، وَإِخْلاَصًا، وَكَلاَمًا صَحِيحًا غَيْرَ مَلُومٍ (تي 2: 7-8)</p>
         </div>
         <div class="button-container">
             <a href="https://forms.gle/Ga6yUcWMtMsNM9Tn7" target="_blank">تسجيل الافتقاد</a>
             <a href="https://drive.google.com/drive/folders/1le1vb5epSdHuHE0WFP8d2IwPshQAiW1g?usp=sharing" target="_blank">مسابقات المخدومين</a>
-            <a href="#" onclick="showSheets()">كشوفات</a>
+            <a href="sheets.html">كشوفات</a>
         </div>
         <div class="container">
             <div class="card">
@@ -909,50 +775,19 @@
         </div>
             
         <div id="playlistModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center;">
-            <div style="background-color: white; padding: 20px; border-radius: 10px; position: relative; width: 90%; max-width: 800px;">
-                <button onclick="closeModal()" style="position: absolute; top: 10px; right: 10px; background-color: #d81b60; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer; font-family: 'Tajawal', sans-serif;">إغلاق</button>
-                <iframe width="100%" height="450" src="https://www.youtube.com/embed/videoseries?list=PLv8B1Nm0ZyI8hWPmtEpIvYS4baUhwzAdU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
+        <div style="background-color: white; padding: 20px; border-radius: 10px; position: relative; width: 90%; max-width: 800px;">
+            <button onclick="closeModal()" style="position: absolute; top: 10px; right: 10px; background-color: #d81b60; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer; font-family: 'Tajawal', sans-serif;">إغلاق</button>
+            <iframe width="100%" height="450" src="https://www.youtube.com/embed/videoseries?list=PLv8B1Nm0ZyI8hWPmtEpIvYS4baUhwzAdU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
-    <div id="sheets-section">
-        <div class="verse-header">
-            <button class="back-button" onclick="showAgenda()">◄ العودة</button>
-            <p>كشوفات</p>
-        </div>
-        <div class="button-container">
-            <a href="https://docs.google.com/spreadsheets/d/1Ow94FerDpthTD6bBlw4YRu9bYdL1DPVU7ojPYqHT3K0/edit?usp=drive_link" target="_blank">حضور الخدام</a>
-            <a href="https://docs.google.com/spreadsheets/d/1CCdsgoXnC4-s4OxvJMxuVhCegbxYDO9gsDDUwJLrpfo/edit?usp=drive_link" target="_blank">حضور مخدومين</a>
-            <a href="https://docs.google.com/spreadsheets/d/1hMvlF6wSSTB2ErV_p8f4DFa4Y9fVnzrO_rX2s2FVl7M/edit?usp=drive_link" target="_blank">حل مسابقات المخدومين</a>
-            <a href="https://docs.google.com/spreadsheets/d/1mHP6IZCZf2lOqaT4Ab_ceq5A9nKIrJ7sNpHBE_6EBk8/edit?usp=drive_link" target="_blank">متابعة الافتقاد</a>
-            <a href="https://docs.google.com/spreadsheets/d/1OBEQxPZ8AiX3nOH3VADrBoHzR-Wvl4GwOM8TMFEin6M/edit?usp=drive_link" target="_blank">مسئولية الافتقاد</a>
-        </div>
-    </div>
+
     <script>
-        function showSheets() {
-            document.getElementById('agenda-section').style.display = 'none';
-            document.getElementById('sheets-section').style.display = 'block';
-            history.pushState({ section: 'sheets' }, '', '#sheets');
-        }
-        function showAgenda() {
-            document.getElementById('agenda-section').style.display = 'block';
-            document.getElementById('sheets-section').style.display = 'none';
-            history.pushState({ section: 'agenda' }, '', '#agenda');
-        }
         function openModal() {
             document.getElementById('playlistModal').style.display = 'flex';
         }
         function closeModal() {
             document.getElementById('playlistModal').style.display = 'none';
         }
-        window.onpopstate = function(event) {
-            if (event.state && event.state.section === 'agenda') {
-                showAgenda();
-            } else {
-                showSheets();
-            }
-        };
-        history.replaceState({ section: 'agenda' }, '', '#agenda');
     </script>
 </body>
 </html>
