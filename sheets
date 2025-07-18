@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>كشوفات</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Tajawal", sans-serif;
+        margin: 30px;
+        background-color: #f5f7fa;
+        direction: rtl;
+        text-align: right;
+        box-sizing: border-box;
+      }
+      .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        height: calc(100vh - 70px);
+        min-height: 0;
+      }
+      .button-container a {
+        flex: 1;
+        width: 100%;
+        max-width: 100%;
+        margin: 5px 0;
+        padding: 12px 25px;
+        background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
+        border: 2px solid #d81b60;
+        border-radius: 10px;
+        color: #d81b60;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+      .button-container a:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        background: linear-gradient(135deg, #d1f0f4 0%, #f5f5f5 100%);
+      }
+      .verse-header {
+        text-align: center;
+        font-family: "Tajawal", sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        color: #26a69a;
+        background-color: #e0f7fa;
+        padding: 15px;
+        margin: 0;
+        width: 100%;
+        border-radius: 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+        box-sizing: border-box;
+      }
+      .verse-header p {
+        margin: 0;
+        line-height: 1.5;
+      }
+
+      .verse-header .back-button {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 12px;
+        background: #c1ece9;
+        border: 2px solid #d81b60;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.2s ease;
+        box-sizing: border-box;
+      }
+      .verse-header .back-button:hover {
+        transform: translateY(-50%) scale(1.1);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        background: #26a69a;
+      }
+      @media screen and (max-width: 1024px) {
+        body {
+          margin: 0;
+          padding: 0;
+        }
+        .button-container {
+          height: calc(100vh - 60px);
+          padding: 0;
+        }
+        .button-container a {
+          padding: 15px 20px !important;
+          font-size: 24px !important;
+          line-height: 1.2 !important;
+          min-height: 70px !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          background: linear-gradient(
+            135deg,
+            #c0f0f7 0%,
+            #ffffff 100%
+          ) !important;
+          box-sizing: border-box !important;
+        }
+        .button-container a:hover {
+          background: linear-gradient(
+            135deg,
+            #c0f0f7 0%,
+            #f5f5f5 100%
+          ) !important;
+        }
+        .verse-header {
+          padding: 10px;
+        }
+
+        .verse-header .back-button {
+          padding: 10px;
+          width: 36px;
+          height: 36px;
+          background: #c1ece9;
+          border-radius: 50%;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .verse-header .back-button:hover {
+          background: #26a69a;
+        }
+      }
+      @media print {
+        body {
+          background-color: white;
+          margin: 10mm;
+        }
+        .button-container a,
+        .verse-header .back-button {
+          background: none;
+          border: 1px solid #d81b60;
+          box-shadow: none;
+        }
+        .verse-header {
+          background-color: #e0f7fa !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="sheets-section">
+      <div class="verse-header">
+        <a href="index.html" class="back-button">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#d81b60"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </a>
+        <p>كشوفات</p>
+      </div>
+      <div class="button-container">
+        <a
+          href="https://docs.google.com/spreadsheets/d/1Ow94FerDpthTD6bBlw4YRu9bYdL1DPVU7ojPYqHT3K0/edit?usp=drive_link"
+          target="_blank"
+          >حضور الخدام</a
+        >
+        <a
+          href="https://docs.google.com/spreadsheets/d/1CCdsgoXnC4-s4OxvJMxuVhCegbxYDO9gsDDUwJLrpfo/edit?usp=drive_link"
+          target="_blank"
+          >حضور مخدومين</a
+        >
+        <a
+          href="https://docs.google.com/spreadsheets/d/1hMvlF6wSSTB2ErV_p8f4DFa4Y9fVnzrO_rX2s2FVl7M/edit?usp=drive_link"
+          target="_blank"
+          >حل مسابقات المخدومين</a
+        >
+        <a
+          href="https://docs.google.com/spreadsheets/d/1mHP6IZCZf2lOqaT4Ab_ceq5A9nKIrJ7sNpHBE_6EBk8/edit?usp=drive_link"
+          target="_blank"
+          >متابعة الافتقاد</a
+        >
+        <a
+          href="https://docs.google.com/spreadsheets/d/1OBEQxPZ8AiX3nOH3VADrBoHzR-Wvl4GwOM8TMFEin6M/edit?usp=drive_link"
+          target="_blank"
+          >مسئولية الافتقاد</a
+        >
+      </div>
+    </div>
+  </body>
+</html>
