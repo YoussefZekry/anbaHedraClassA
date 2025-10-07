@@ -43,6 +43,21 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
             background: linear-gradient(135deg, #26a69a 0%, #8ae9d1 100%);
         }
+        .button-container a.highlight-button { /* CHANGED */
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffe1e1 100%); /* CHANGED */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s infinite ease-in-out;
+        } /* CHANGED */
+        .button-container a.highlight-button:hover { /* CHANGED */
+            background: linear-gradient(135deg, #f81414 0%, #fff0f0 100%); /* CHANGED */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            transform: scale(1.05);
+        } /* CHANGED */
+        @keyframes pulse { /* ADDED */
+            0% { transform: scale(1); } /* ADDED */
+            50% { transform: scale(1.02); } /* ADDED */
+            100% { transform: scale(1); } /* ADDED */
+        } /* ADDED */
         .card {
             background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
             border: 1px solid #b0bec5;
@@ -137,6 +152,23 @@
                 print-color-adjust: exact;
             }
         }
+         .button-container a {
+                padding: 15px 30px; /* ADDED */
+                font-size: 18px; /* ADDED */
+                box-sizing: border-box; /* ADDED */
+            }
+          .button-container a.highlight-button { /* CHANGED */
+                padding: 15px 30px;
+                font-size: 18px;
+                background: linear-gradient(135deg, #300242 0%, #c74465 100%); /* CHANGED */
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+                animation: pulse 2s infinite ease-in-out;
+            } /* CHANGED */
+            .button-container a.highlight-button:hover { /* CHANGED */
+                background: linear-gradient(135deg, #300242 0%, #c74465 100%); /* CHANGED */
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+                transform: scale(1.05);
+            } /* CHANGED */
         .verse-header {
             text-align: center;
             font-family: 'Tajawal', sans-serif;
@@ -164,6 +196,7 @@
             <a href="https://forms.gle/oBTumDJU7kMW7ReA9" target="_blank">تسجيل الافتقاد</a>
             <a href="https://drive.google.com/drive/folders/1c1svc2NS0LlWC6QvKXLZ3lNTjr_6l3JM?usp=sharing" target="_blank">مسابقات المخدومين</a>
             <a href="sheets.html">كشوفات</a>
+            <a href="https://forms.gle/dC6oWVrr2iE27gN96" target="_blank" class="highlight-button">تقييم المخدوم</a> <!-- ADDED -->
         </div>
         <div class="container">
             <div class="card">
