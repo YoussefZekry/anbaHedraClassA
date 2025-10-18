@@ -11,12 +11,16 @@
             background-color: #f5f7fa;
             direction: rtl;
             text-align: right;
+            overflow-x: hidden;
+            min-height: 100vh;
         }
         .container {
             display: flex;
             flex-wrap: wrap;
             gap: 25px;
             justify-content: center;
+            padding-bottom: 30px;
+            box-sizing: border-box;
         }
         .button-container {
             display: flex;
@@ -29,12 +33,11 @@
             padding: 22px 44px;
             background: linear-gradient(135deg, #218f84 0%, #82dbc5 100%);
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             color: #f3eaed;
             font-size: 24px;
             font-weight: 700;
             text-decoration: none;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             transition: all 0.2s ease;
             box-sizing: border-box;
         }
@@ -43,21 +46,21 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
             background: linear-gradient(135deg, #26a69a 0%, #8ae9d1 100%);
         }
-        .button-container a.highlight-button { /* CHANGED */
-            background: linear-gradient(135deg, #ff6b6b 0%, #ffe1e1 100%); /* CHANGED */
+        .button-container a.highlight-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffe1e1 100%);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
             animation: pulse 2s infinite ease-in-out;
-        } /* CHANGED */
-        .button-container a.highlight-button:hover { /* CHANGED */
-            background: linear-gradient(135deg, #f81414 0%, #fff0f0 100%); /* CHANGED */
+        }
+        .button-container a.highlight-button:hover {
+            background: linear-gradient(135deg, #f81414 0%, #fff0f0 100%);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
             transform: scale(1.05);
-        } /* CHANGED */
-        @keyframes pulse { /* ADDED */
-            0% { transform: scale(1); } /* ADDED */
-            50% { transform: scale(1.02); } /* ADDED */
-            100% { transform: scale(1); } /* ADDED */
-        } /* ADDED */
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
         .card {
             background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
             border: 1px solid #b0bec5;
@@ -123,6 +126,77 @@
         .description li {
             margin-bottom: 8px;
         }
+        .verse-header {
+            text-align: center;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #26a69a;
+            background-color: #e0f7fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .verse-header p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* UNIFIED MOBILE STYLES - Matches curriculum.html */
+        @media screen and (max-width: 1024px) {
+            body {
+                background-color: white;
+                margin: 30px;
+            }
+            .card {
+                background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
+                border: 1px solid #b0bec5;
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+                page-break-inside: avoid;
+                width: 350px;
+            }
+            .card.playground {
+                background: linear-gradient(135deg, #26a69a 0%, #ffffff 100%);
+            }
+            .container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 25px;
+                justify-content: center;
+                padding-bottom: 20px;
+                box-sizing: border-box;
+            }
+            .verse-header {
+                background-color: #e0f7fa !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                font-size: 18px;
+                padding: 15px;
+            }
+            .verse-header p {
+                margin: 0;
+                line-height: 1.5;
+            }
+            .button-container a {
+                padding: 15px 30px;
+                font-size: 18px;
+                box-sizing: border-box;
+            }
+            .button-container a.highlight-button {
+                padding: 15px 30px;
+                font-size: 18px;
+                background: linear-gradient(135deg, #300242 0%, #c74465 100%);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+                animation: pulse 2s infinite ease-in-out;
+            }
+            .button-container a.highlight-button:hover {
+                background: linear-gradient(135deg, #300242 0%, #c74465 100%);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+                transform: scale(1.05);
+            }
+        }
+
         @media print {
             body {
                 background-color: white;
@@ -152,692 +226,48 @@
                 print-color-adjust: exact;
             }
         }
-         .button-container a {
-                padding: 15px 30px; /* ADDED */
-                font-size: 18px; /* ADDED */
-                box-sizing: border-box; /* ADDED */
-            }
-          .button-container a.highlight-button { /* CHANGED */
-                padding: 15px 30px;
-                font-size: 18px;
-                background: linear-gradient(135deg, #300242 0%, #c74465 100%); /* CHANGED */
-                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-                animation: pulse 2s infinite ease-in-out;
-            } /* CHANGED */
-            .button-container a.highlight-button:hover { /* CHANGED */
-                background: linear-gradient(135deg, #300242 0%, #c74465 100%); /* CHANGED */
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
-                transform: scale(1.05);
-            } /* CHANGED */
-        .verse-header {
-            text-align: center;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 20px;
-            font-weight: 700;
-            color: #26a69a;
-            background-color: #e0f7fa;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .verse-header p {
-            margin: 0;
-            line-height: 1.5;
-        }
     </style>
 </head>
-<body>
+<body onload="loadCardsFromSheet()">
  <div id="agenda-section">
         <div class="verse-header">
-            <p>مُقَدِّمًا فِي التَّعْلِيمِ نَقَاوَةً، وَوَقَارًا، وَإِخْلاَصًا، وَكَلاَمًا صَحِيحًا غَيْرَ مَلُومٍ (تي 2: 7-8)</p>
+            <p>مُقَدِّمًا فِي التَّعْلِيمِ نَقَاوَةً، وَوَقَارًا، وَإِخْلاَصًا، وَكَلاَمًا صَحِيحًا غَيْرَ مَلُومٍ (تي 2: 7-8)</p>
         </div>
         <div class="button-container">
             <a href="https://forms.gle/oBTumDJU7kMW7ReA9" target="_blank">تسجيل الافتقاد</a>
             <a href="https://drive.google.com/drive/folders/1c1svc2NS0LlWC6QvKXLZ3lNTjr_6l3JM?usp=sharing" target="_blank">مسابقات المخدومين</a>
             <a href="sheets.html">كشوفات</a>
-            <a href="https://forms.gle/fddhyYRAikRN7HCx6" target="_blank" class="highlight-button">تقييم المخدوم</a> <!-- ADDED -->
+            <a href="curriculum.html">المنهج التعليمي</a>
         </div>
-        <div class="container">
-            <div class="card">
-                <div class="date-header">ازاي احضر وأقول الدرس</div>
-                <div class="title">
-                    <div class="description">
-                        <div onclick="openModal()" style="position: relative; cursor: pointer;">
-                            <img src="https://img.youtube.com/vi/8lKVllaYWPY/hqdefault.jpg" onerror="this.src='https://img.youtube.com/vi/8lKVllaYWPY/hqdefault.jpg'" alt="Playlist Thumbnail" style="width: 100%; height: auto; display: block; border-radius: 8px;">
-                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #FF0000; border-radius: 8px; width: 51px; height: 36px; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s ease;">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                                    <polygon points="5,3 19,12 5,21"/>
-                                </svg>
-                            </div>
-                        </div>
+
+<div class="container" id="cards-container">
+    <!-- Static "How to Prepare" card -->
+    <div class="card">
+        <div class="date-header">ازاي احضر وأقول الدرس</div>
+        <div class="title">
+            <div class="description">
+                <div onclick="openModal()" style="position: relative; cursor: pointer;">
+                    <img src="https://img.youtube.com/vi/8lKVllaYWPY/hqdefault.jpg" onerror="this.src='https://img.youtube.com/vi/8lKVllaYWPY/hqdefault.jpg'" alt="Playlist Thumbnail" style="width: 100%; height: auto; display: block; border-radius: 8px;">
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #FF0000; border-radius: 8px; width: 51px; height: 36px; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s ease;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                            <polygon points="5,3 19,12 5,21"/>
+                        </svg>
                     </div>
-                    <span class="instructor"> <br>مجموعة الفيديوهات ديه هتساعدك كتير في تحضير و القاء الدرس </span><br>
                 </div>
             </div>
-
-    <!--  
-            May 6, 2025 #############################################
-            <div class="card">
-                <div class="date-header">٦ مايو ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(ميس داليا) </span><br>
-                    <span class="instructor">📖الدرس: مارمرقس والأسد </span><br>
-                    <span class="instructor">🎯الهدف: الشجاعة وعدم الخوف ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> مارمرقس والأسد</li>
-                        <li><strong>شاهد الدرس:</strong> ٣٠ برموده</li>
-                        <li><strong>الهدف:</strong> الشجاعة وعدم الخوف</li>
-                        <li><strong>التدريب:</strong> منخافش من أى حاجة</li>
-                        <li><strong>الآية:</strong> كانوا يواظبون على الصلاة (أع١٤:١)</li>
-                    </ul>
-                </div>
-            </div>
-
-            May 13, 2025 #############################################
-            <div class="card">
-                <div class="date-header">١٣ مايو ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(ميس جينا) </span><br>
-                    <span class="instructor">📖الدرس: ظهور المسيح عند بحيرة طبرية </span><br>
-                    <span class="instructor">🎯الهدف: فرحنا بالقيامة ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>   
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> ظهور المسيح عند بحيرة طبرية</li>
-                        <li><strong>شاهد الدرس:</strong> يوحنا ٢١</li>
-                        <li><strong>الهدف:</strong> فرحنا بالقيامة</li>
-                        <li><strong>التدريب:</strong> نسمع كلام بابا يسوع ومنخافش من حاجة</li>
-                        <li><strong>الآية:</strong> طوبى للذين أمنوا ولم يروا (يو٢٠:٢٩)</li>
-                    </ul>
-                </div>
-            </div>
-
-            May 20, 2025 #############################################
-            <div class="card">
-                <div class="date-header">٢٠ مايو ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(ميس سوزان) </span><br>
-                    <span class="instructor">📖الدرس: الصعود </span><br>
-                    <span class="instructor">🎯الهدف: الأحتفال بالصعود ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>   
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> الصعود</li>
-                        <li><strong>شاهد الدرس:</strong> أعمال الرسل الأصحاح ١</li>
-                        <li><strong>الهدف:</strong> الأحتفال بصعود بابا يسوع</li>
-                        <li><strong>التدريب:</strong> نحضر قداس العيد</li>
-                        <li><strong>الآية:</strong> عيشوا بالسلام (٢كو١٣:١١)</li>
-                    </ul>
-                </div>
-            </div>
-
-            May 27, 2025 #############################################
-            <div class="card playground">
-                <div class="date-header">٢٧ مايو ٢٠٢٥</div>
-                <div class="title">ملعب <span>🏃🏻‍♂️🏐</span></div>
-            </div> 
-
-            June 3, 2025 #############################################
-            <div class="card">
-                <div class="date-header">٣ يونيو ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(ميس مريم مراد) </span><br>
-                    <span class="instructor">📖الدرس: حلول الروح القدس </span><br>
-                    <span class="instructor">🎯الهدف: معرفة نعمة الروح القدس ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>   
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> حلول الروح القدس</li>
-                        <li><strong>شاهد الدرس:</strong> أعمال الرسل الأصحاح ٢</li>
-                        <li><strong>الهدف:</strong> معرفة نعمة الروح القدس</li>
-                        <li><strong>التدريب:</strong> نشكر بابا يسوع على نعمة الروح القدس</li>
-                        <li><strong>الآية:</strong> بركة الرب هى تغنى (أم١٠:٢٢)</li>
-                    </ul>
-                </div>
-            </div>
-
-            June 10, 2025 #############################################
-            <div class="card">
-                <div class="date-header">١٠ يونيو ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(ميس نورا) </span><br>
-                    <span class="instructor">📖الدرس: مارجرجس ورشم الصليب </span><br>
-                    <span class="instructor">🎯الهدف: محبتنا لربنا ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>   
-                <div class="description">
-                    <ul>
-                        <li><strong>الدرس:</strong> مارجرجس ورشم الصليب</li>
-                        <li><strong>المراجع:</strong> سنكسار ٧ هاتور – ٢٣ برمودة</li>
-                        <li><strong>الهدف:</strong> محبتنا لربنا</li>
-                        <li><strong>التدريب:</strong> نرشم الصليب كل وقت</li>
-                        <li><strong>الآية:</strong> نحن نحبه لأنه هو أحبنا أولًا (١يو٤:١٩)</li>
-                    </ul>
-                </div>
-            </div>
-        
-            June 17, 2025 #############################################
-            <div class="card">
-                <div class="date-header">١٧ يونيو ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(ميس مارى إميل) </span><br> ^^^^^^^^^original^^^^^^^^^^ #############################################
-                    <span class="instructor">👩‍🏫(ميس داليا) </span><br>
-                    <span class="instructor">📖الدرس: العدرا حالة الحديد </span><br>
-                    <span class="instructor">🎯الهدف: شفاعة القديسين ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق 👩‍🏫 (ميس جينا)</span>
-                </div>
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> العدرا حالة الحديد</li>
-                        <li><strong>شاهد الدرس:</strong> قصة العدرا و متياس الرسول</li>
-                        <li><strong>الهدف:</strong> شفاعة القديسين</li>
-                        <li><strong>التدريب:</strong> نتشفع بالقديسين علشان هما بيوصلوا صلاتنا لربنا</li>
-                        <li><strong>الآية:</strong> ظهرت آية في السماء (رؤ ١٢:١)</li>
-                    </ul>
-                </div>
-            </div>
-
-            June 24, 2025 #############################################
-            <div class="card playground">
-                <div class="date-header">٢٤ يونيو ٢٠٢٥</div>
-                <div class="title">ملعب <span>🏃🏻‍♂️🏐</span></div>
-            </div>
-        -->
-<!-- 
-            July 1, 2025 #############################################
-            <div class="card">
-                <div class="date-header">١ يوليو ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(ميس ماري سمير)</span><br> ^^^^^^^^^original^^^^^^^^^^ #############################################
-                    <span class="instructor">👩‍🏫(ميس ماري اميل) </span><br>
-                    <span class="instructor">📖الدرس: بولس وسيلا فى السجن / إيمان بولس الرسول </span><br>
-                    <span class="instructor">🎯الهدف: عناية الله بأولاده ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">حفظ جزء من ابانا الذي ⏱️١٠ دقائق 👩‍🏫 (ميس ماريان عوض)</span>
-                </div>   
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> بولس وسيلا فى السجن / إيمان بولس الرسول</li>
-                        <li><strong>شاهد الدرس:</strong> أع ١٦:١٦-٤٠ / أع ١٤:٢٦</li>
-                        <li><strong>الهدف:</strong> عناية الله بأولاده</li>
-                        <li><strong>التدريب:</strong> حضور القداس</li>
-                        <li><strong>الآية:</strong> ها أنا معكم كل الأيام (مت٢٠:٢٨)</li>
-                    </ul>
-                </div>
-            </div>
-
-            July 8, 2025 #############################################
-            <div class="card">
-                <div class="date-header">٨ يوليو ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(ميس نيفين جميل) </span><br> ^^^^^^^^^original^^^^^^^^^^ #############################################
-                    <span class="instructor">👩‍🏫(ميس مارينا سعيد) </span><br>
-                    <span class="instructor">📖الدرس: الأنبا يحنس </span><br>
-                    <span class="instructor">🎯الهدف: الطاعة ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">حفظ جزء من ابانا الذي ⏱️١٠ دقائق 👩‍🏫 (ميس مريم مراد)</span> #############################################
-                </div>     
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> الأنبا يحنس</li>
-                        <li><strong>شاهد الدرس:</strong> ٢٠ بابة</li>
-                        <li><strong>الهدف:</strong> الطاعة</li>
-                        <li><strong>التدريب:</strong> لازم نسمع كلام بابا وماما ونساعدهم فى البيت</li>
-                        <li><strong>الآية:</strong> تحب قريبك كنفسك (لو١٠:٢٧)</li> #############################################
-                        <li><strong>الآية:</strong>ايه قصيرة من اختيار الخادم</li>
-                    </ul>
-                </div>
-            </div>
-
-            July 15, 2025 #############################################
-            <div class="card">
-                <div class="date-header">١٥ يوليو ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👨‍🏫(مستر ديفيد) </span><br> ^^^^^^^^^original^^^^^^^^^^ #############################################
-                    <span class="instructor">👩‍🏫(ميس سوزان) </span><br> 
-                    <span class="instructor">📖الدرس: الأنبا بيشوى في خدمة الاخرين </span><br>
-                    <span class="instructor">🎯الهدف: مساعدة الأخرين ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">حفظ جزء من ابانا الذي ⏱️١٠ دقائق 👩‍🏫 (ميس نرجس انور)</span> #############################################
-                </div>     
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> الأنبا بيشوى في خدمة الاخرين</li>
-                        <li><strong>شاهد الدرس:</strong> ٨ أبيب</li>
-                        <li><strong>الهدف:</strong> مساعدة الأخرين</li>
-                        <li><strong>التدريب:</strong> نساعد بابا وماما فى البيت ونعمل أى حاجة يطلبوها</li>
-                        <li><strong>الآية:</strong> باركى يا نفسى الرب (مز١٠٣:١)</li>
-                    </ul>
-                </div>
-            </div> -->
-            <!-- <div class="card playground">
-                <div class="date-header">١٥ يوليو ٢٠٢٥</div>
-                <div class="title">كورال <span>🎤 🎶 🎶</span></div>
-            </div> -->
-
-            <!-- July 22, 2025 #############################################
-            <div class="card">
-                <div class="date-header">٢٢ يوليو ٢٠٢٥</div>
-                <div class="title"> 
-                   <span class="instructor">👨‍🏫(ميس جينا)</span><br> ^^^^^^^^^original^^^^^^^^^^ #############################################
-                    <span class="instructor">👨‍🏫(ميس مورا)</span><br>
-                    <span class="instructor">📖الدرس: الملاك الحارس </span><br>
-                    <span class="instructor">🎯الهدف: خدمة الملائكة للبشر ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">حفظ جزء من ابانا الذي ⏱️١٠ دقائق 👩‍🏫 (ميس ماري سمير)</span> #############################################
-                </div>       
-                <div class="description">
-                    <ul>
-                        <li><strong>الدرس:</strong> الملاك الحارس</li>
-                        <li><strong>المراجع:</strong> نبذة الملائكة لقداسة البابا شنوده الثالث</li>
-                        <li><strong>الهدف:</strong> خدمة الملائكة للبشر</li>
-                        <li><strong>الآية:</strong> ملاكي يسير امامك (٣٤:٣٢)</li>
-                    </ul>
-                </div>
-            </div> -->
-            <!-- <div class="card playground">
-                <div class="date-header">٢٢ يوليو ٢٠٢٥</div>
-                <div class="title">كورال <span>🎤 🎶 🎶</span></div>
-            </div> -->
-<!-- 
-            July 29, 2025 #############################################
-            <div class="card playground">
-                <div class="date-header">٢٩ يوليو ٢٠٢٥</div>
-                <div class="title">ملعب و كورال<span>🏃🏻‍♂️🏐 <br> 🎤 🎶 🎶</span></div>
-            </div> -->
-        
-            <!-- August 5, 2025 ############################################# -->
-            <!-- <div class="card">
-                <div class="date-header">٥ أغسطس ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👨‍🏫(ميس ماريان عوض) </span><br>
-                    <span class="instructor">📖الدرس: شفاء العشرة البرص </span><br>
-                    <span class="instructor">🎯الهدف: نشكر الله كل حين و على كل حال ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>   
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> شفاء العشرة البرص</li>
-                        <li><strong>شاهد الدرس:</strong> إنجيل لوقا ١٧:١١-١٩</li>
-                        <li><strong>الهدف:</strong> نشكر الله كل حين و على كل حال</li>
-                        <li><strong>التدريب:</strong> التفكير في نعم الله الكثيرة كل يوم</li>
-                        <li><strong>الآية:</strong> احْمَدُواالرَّبَّ لأَنَّهُ صَالِحٌ، لأَنَّ إِلَى الأَبَدِ رَحْمَتَهُ (مز ٢٩:١١٨)</li>
-                    </ul>
-                </div>
-            </div> -->
-
-            <!-- August 12, 2025 #############################################
-            <div class="card">
-                <div class="date-header">١٢ أغسطس ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👨‍🏫(ميس مريم سليمان) </span><br>
-                    <span class="instructor">📖الدرس: شجرة الطاعة </span><br>
-                    <span class="instructor">🎯الهدف: طاعة بابا وماما علشان ربنا يفرح بينا ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>      
-                <div class="description">
-                    <ul>
-                        <li><strong>الدرس:</strong> شجرة الطاعة</li>
-                        <li><strong>المراجع:</strong> ك بستان الرهبان – سنكسار ٢٠ بابة</li>
-                        <li><strong>الهدف:</strong> طاعة بابا وماما علشان ربنا يفرح بينا</li>
-                        <li><strong>الآية:</strong> أكرم أباك وأمك (خر٢٠:١٢)</li>
-                    </ul>
-                </div>
-            </div> -->
-
-            <!-- <div class="card playground">
-                <div class="date-header">١٢ أغسطس ٢٠٢٥</div>
-                <div class="title">اجازة عشان نهضة العدرا <br>💗 ⛪ 🕊️</div>
-            </div> -->
-
-            <!-- August 19, 2025 ############################################# -->
-            <!-- <div class="card">
-                <div class="date-header">١٩ أغسطس ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👨‍🏫(ميس مريم مراد) </span><br>
-                    <span class="instructor">📖الدرس: عيد العذراء </span><br>
-                    <span class="instructor">🎯الهدف: محبة بابا يسوع لمامته ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>      
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> عيد العذراء</li>
-                        <li><strong>شاهد الدرس:</strong> ١٦ مسرى</li>
-                        <li><strong>الهدف:</strong> محبة بابا يسوع لمامته</li>
-                        <li><strong>التدريب:</strong> نسمع كلام بابا وماما ونحبهم</li>
-                        <li><strong>الآية:</strong> أكرم أباك وأمك (خر١٢:٢٠)</li>
-                    </ul>
-                </div>
-            </div> -->
-
-            <!-- <div class="card playground">
-                <div class="date-header">١٩ أغسطس ٢٠٢٥</div>
-                <div class="title"> يوم الكورال<br>🎤 🎶 🎶 ⛪ 🕊️</div>
-            </div> -->
-
-            <!-- August 26, 2025 ############################################# -->
-            <!-- <div class="card playground">
-                <div class="date-header">٢٦ أغسطس ٢٠٢٥</div>
-                <div class="title">ملعب <span>🏃🏻‍♂️🏐</span></div>
-            </div> -->
-<!-- 
-            September 2, 2025 #############################################
-            <div class="card">
-                <div class="date-header">٢ سبتمبر ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👨‍🏫(مستر ميلاد) </span><br>
-                    <span class="instructor">📖الدرس: ولادة صموئيل </span><br>
-                    <span class="instructor">🎯الهدف: إستجابة الصلاة ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>      
-                <div class="description">
-                    <ul>
-                        <li><strong>الدرس:</strong> ولادة صموئيل</li>
-                        <li><strong>المراجع:</strong> صم١ إصحاح ١،٢،٣ – السنكسار ٦ بابة</li>
-                        <li><strong>الهدف:</strong> إستجابة الصلاة</li>
-                        <li><strong>التدريب:</strong> نصلي قبل ما ننام</li>
-                        <li><strong>الآية:</strong> صلوا بلا إنقطاع (١تس٥:١٧)</li>
-                    </ul>
-                </div>
-            </div>
-
-            September 9, 2025 #############################################
-            <div class="card">
-                <div class="date-header">٩ سبتمبر ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👨‍🏫(ميس جينا) </span><br>
-                    <span class="instructor">📖الدرس: عيد النيروز (مارمينا والخروف) </span><br>
-                    <span class="instructor">🎯الهدف: شفاعة القديسين ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>      
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> عيد النيروز (مارمينا والخروف)</li>
-                        <li><strong>شاهد الدرس:</strong> ١٥ هاتور</li>
-                        <li><strong>الهدف:</strong> شفاعة القديسين</li>
-                        <li><strong>التدريب:</strong> نتشفع بالقديسين علشان هما بيوصلوا صلاتنا لربنا</li>
-                        <li><strong>الآية:</strong> كل واحد يساعد صاحبه (أش٤١:٦)</li>
-                    </ul>
-                </div>
-            </div>
-
-            September 16, 2025 #############################################
-            <div class="card">
-                <div class="date-header">١٦ سبتمبر ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(ميس سوزان) </span><br>
-                    <span class="instructor">📖الدرس: معجزة تهدئة العاصفة </span><br>
-                    <span class="instructor">🎯الهدف: سلطان بابا يسوع ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> معجزة تهدئة العاصفة</li>
-                        <li><strong>شاهد الدرس:</strong> مر ٤، مت ٨</li>
-                        <li><strong>الهدف:</strong> سلطان بابا يسوع</li>
-                        <li><strong>التدريب:</strong> عدم الخوف ورشم الصليب</li>
-                        <li><strong>الآية:</strong> أنا هو لا تخافوا (مر٦:٥٠)</li>
-                    </ul>
-                </div>
-            </div>
-
-            September 23, 2025 #############################################
-            <div class="card">
-                <div class="date-header">٢٣ سبتمبر ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(ميس نرمين مجدى)</span><br>
-                    <span class="instructor">📖الدرس: عيد الصليب </span><br>
-                    <span class="instructor">🎯الهدف: رشم الصليب ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> عيد الصليب</li>
-                        <li><strong>شاهد الدرس:</strong> ١٠ برمهات</li>
-                        <li><strong>الهدف:</strong> رشم الصليب</li>
-                        <li><strong>التدريب:</strong> رشم الصليب فى كل وقت وعند الخوف</li>
-                        <li><strong>الآية:</strong> بيتى بيت الصلاة يدعى (مت٢١:١٣)</li>
-                    </ul>
-                </div>
-            </div>
-
-            September 30, 2025 #############################################
-            <div class="card playground">
-                <div class="date-header">٣٠ سبتمبر ٢٠٢٥</div>
-                <div class="title">ملعب <span>🏃🏻‍♂️🏐</span></div>
-            </div>
-                -->
-
-            <!-- October 7, 2025 ############################################# -->
-            <!-- <div class="card">
-                <div class="date-header">٧ أكتوبر ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(مستر يوسف ذكري) </span><br>
-                    <span class="instructor">📖الدرس: نوح والفلك </span><br>
-                    <span class="instructor">🎯الهدف: محبة الله لنا وعنايته بنا ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> نوح والفلك</li>
-                        <li><strong>شاهد الدرس:</strong> تكوين ٦،٧</li>
-                        <li><strong>الهدف:</strong> محبة الله لنا وعنايته بنا</li>
-                        <li><strong>التدريب:</strong> نشكر بابا يسوع علشان بيحبنا ونصلى قبل ما نام</li>
-                        <li><strong>الآية:</strong> ها أنا معك وأحفظك (تك٢٨:١٥)</li>
-                    </ul>
-                </div>
-            </div> -->
-            <div class="card">
-                <div class="date-header">7 أكتوبر 2025 || 27 توت 1742</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(ميس مريم مجدي) </span><br>
-                    <span class="instructor">📖الدرس: معجزة تهدئة العاصفة </span><br>
-                    <span class="instructor">🎯الهدف: سلطان بابا يسوع </span><br>
-                    <!-- <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span> -->
-                </div>
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> معجزة تهدئة العاصفة</li>
-                        <li><strong>شاهد الدرس:</strong> مر ٤، مت ٨</li>
-                        <!-- <li><strong>الهدف:</strong> سلطان بابا يسوع</li> -->
-                        <li><strong>التدريب:</strong> عدم الخوف ورشم الصليب</li>
-                        <li><strong>الآية:</strong> أنا هو لا تخافوا (مر6: 50)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- October 14, 2025 ############################################# -->
-            <div class="card">
-                <div class="date-header">14 أكتوبر 2025 || 4 بابة 1742</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(ميس مريم سامي) </span><br>
-                    <span class="instructor">📖الدرس: سلوكنا في القداس </span><br>
-                    <span class="instructor">🎯الهدف: احترام بيت ربنا  </span><br>
-                    <!-- <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span> -->
-                </div>
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> سلوكنا في القداس</li>
-                        <!-- <li><strong>الهدف:</strong> احترام بيت ربنا</li> -->
-                        <li><strong>التدريب:</strong> نقف حلو فى الكنيسة</li>
-                        <li><strong>الآية:</strong> تكلم يارب لأن عبدك سامع (١صم 3: 9)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- October 21, 2025 ############################################# -->
-            <div class="card">
-                <div class="date-header">21 أكتوبر 2025 || 11 بابة 1752</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(ميس ماري)</span><br>
-                    <span class="instructor">📖الدرس: عنقود العنب </span><br>
-                    <span class="instructor">🎯الهدف: المحبة والعطاء ومساعدة الأخرين(في البيت)  </span><br>
-                    <!-- <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span> -->
-                </div>
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> عنقود العنب</li>
-                        <li><strong>شاهد الدرس:</strong> بستان الرهبان</li>
-                        <!-- <li><strong>الهدف:</strong> المحبة ومساعدة الأخرين</li> -->
-                        <li><strong>التدريب:</strong> كل واحد يعطى بنبونى للى جانبه</li>
-                        <li><strong>الآية:</strong> المحبة لا تسقط أبداً (١كو 13: 8)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- October 28, 2025 ############################################# -->
-            <div class="card playground">
-                <div class="date-header">٢٨ أكتوبر ٢٠٢٥</div>
-                <div class="title">ملعب <span>🏃🏻‍♂️🏐</span></div>
-            </div>
-
-     <!--
-                 November 4, 2025 #############################################
-            <div class="card">
-                <div class="date-header">٤ نوفمبر ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(مستر مينا وليم) </span><br>
-                    <span class="instructor">📖الدرس: داود و اختياره ملك </span><br>
-                    <span class="instructor">🎯الهدف: الله ينظر الى القلب وليس الشكل ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> داود و اختياره ملك</li>
-                        <li><strong>شاهد الدرس:</strong> ١صم ١٦</li>
-                        <li><strong>الهدف:</strong> الله ينظر الى القلب وليس الشكل</li>
-                        <li><strong>التدريب:</strong> أحب أخويا ومعملش حاجة تضايقه</li>
-                        <li><strong>الآية:</strong> الرب راعي فلا يعوزني شيئ (مز٢٣:١)</li>
-                    </ul>
-                </div>
-            </div>
-
-            November 11, 2025 #############################################
-            <div class="card">
-                <div class="date-header">١١ نوفمبر ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(ميس مارى إميل) </span><br>
-                    <span class="instructor">📖الدرس: ايليا والأرملة / أو مع الغراب </span><br>
-                    <span class="instructor">🎯الهدف: محبة ربنا لنا ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> ايليا والأرملة / أو مع الغراب</li>
-                        <li><strong>شاهد الدرس:</strong> ١مل١٧</li>
-                        <li><strong>الهدف:</strong> محبة ربنا لنا</li>
-                        <li><strong>التدريب:</strong> نسمع كلام بابا يسوع ونصلى قبل ما نام</li>
-                        <li><strong>الآية:</strong> أطلبوا أولاً ملكوت الله وبره (مت٦:٣٣)</li>
-                    </ul>
-                </div>
-            </div>
-
-            November 18, 2025 #############################################
-            <div class="card">
-                <div class="date-header">١٨ نوفمبر ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(ميس ماجدة عيسي) </span><br>
-                    <span class="instructor">📖الدرس: الطفل داود (الأسد والدب) </span><br>
-                    <span class="instructor">🎯الهدف: الله يعطينا قوة على حروب الشيطان ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>
-                <div class="description">
-                    <ul>
-                        <li><strong>الدرس:</strong> الطفل داود (الأسد والدب)</li>
-                        <li><strong>المراجع:</strong> ١صم ١٧</li>
-                        <li><strong>الهدف:</strong> الله يعطينا قوة على حروب الشيطان</li>
-                        <li><strong>التدريب:</strong> التركيز على محاربة خطية متكررة</li>
-                        <li><strong>الآية:</strong> ستنالون قوة متى حل الروح القدس عليكم (أع١:٨)</li>
-                    </ul>
-                </div>
-            </div>
-
-            November 25, 2025 #############################################
-            <div class="card playground">
-                <div class="date-header">٢٥ نوفمبر ٢٠٢٥</div>
-                <div class="title">ملعب <span>🏃🏻‍♂️🏐</span></div>
-            </div>
-
-            December 2, 2025 #############################################
-            <div class="card">
-                <div class="date-header">٢ ديسمبر ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👨‍🏫(مستر ديفيد) </span><br>
-                    <span class="instructor">📖الدرس: المسيح فى الهيكل </span><br>
-                    <span class="instructor">🎯الهدف: احترام الكنيسة ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> المسيح فى الهيكل</li>
-                        <li><strong>شاهد الدرس:</strong> يو٢:١٢-١٧</li>
-                        <li><strong>الهدف:</strong> احترام الكنيسة</li>
-                        <li><strong>التدريب:</strong> نقف حلو فى الكنيسة واحنا بنصلى</li>
-                        <li><strong>الآية:</strong> لا تخف لأنى معك (مت٤١:١٠)</li>
-                    </ul>
-                </div>
-            </div>
-
-            December 9, 2025 #############################################
-            <div class="card">
-                <div class="date-header">٩ ديسمبر ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(ميس ماري سمير) </span><br>
-                    <span class="instructor">📖الدرس: بشارة زكريا </span><br>
-                    <span class="instructor">🎯الهدف: خدمة الملايكة للبشر والصلاة ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> بشارة زكريا</li>
-                        <li><strong>شاهد الدرس:</strong> لو ١</li>
-                        <li><strong>الهدف:</strong> خدمة الملايكة للبشر والصلاة</li>
-                        <li><strong>التدريب:</strong> نصلى قبل ما نام علشان بابا يسوع يبعت الملاك الحارس يحرسنا</li>
-                        <li><strong>الآية:</strong> قوتى وتسبحتى هو الرب (مز١١٨:١٤)</li>
-                    </ul>
-                </div>
-            </div>
-
-            December 16, 2025 #############################################
-            <div class="card">
-                <div class="date-header">١٦ ديسمبر ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">👩‍🏫(ميس نورا) </span><br>
-                    <span class="instructor">📖الدرس: بشارة العذراء </span><br>
-                    <span class="instructor">🎯الهدف: خدمة الملايكة للبشر والصلاة ⏱️٢٠ دقيقة </span><br>
-                    <span class="instructor">🙏🏻محفوظات ⏱️١٠ دقائق </span>
-                </div>
-                <div class="description">
-                    <ul>
-                        <li><strong>عنوان الدرس:</strong> بشارة العذراء</li>
-                        <li><strong>شاهد الدرس:</strong> لو ١</li>
-                        <li><strong>الهدف:</strong> خدمة الملايكة للبشر والصلاة</li>
-                        <li><strong>التدريب:</strong> نصلى قبل ما نام علشان بابا يسوع يبعت الملاك الحارس يحرسنا</li>
-                        <li><strong>الآية:</strong> مباركه أنت فى النساء (لو١:٢٨)</li>
-                    </ul>
-                </div>
-            </div>
-
-            December 23, 2025 #############################################
-            <div class="card playground">
-                <div class="date-header">٢٣ ديسمبر ٢٠٢٥</div>
-                <div class="title"> 
-                    <span class="instructor">🥳 حفلة عيد الميلاد 🎄 </span>
-                </div>
-            </div>
-
-            December 30, 2025 #############################################
-            <div class="card playground">
-                <div class="date-header">٣٠ ديسمبر ٢٠٢٥</div>
-                <div class="title">ملعب <span>🏃🏻‍♂️🏐</span></div>
-            </div>
-
+            <span class="instructor"><br>مجموعة الفيديوهات ديه هتساعدك كتير في تحضير و القاء الدرس</span><br>
         </div>
-     -->
-            
+    </div>
+    
+    <!-- DYNAMIC CARDS INSERTED BY JAVASCRIPT -->
+    
+    <!-- PLAYGROUND CARD -->
+    <div class="card playground">
+        <div class="date-header">٢٨ أكتوبر ٢٠٢٥</div>
+        <div class="title">ملعب <span>🏃🏻‍♂️🏐</span></div>
+    </div>
+</div>
+
         <div id="playlistModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center;">
         <div style="background-color: white; padding: 20px; border-radius: 10px; position: relative; width: 90%; max-width: 800px;">
             <button onclick="closeModal()" style="position: absolute; top: 10px; right: 10px; background-color: #d81b60; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer; font-family: 'Tajawal', sans-serif;">إغلاق</button>
@@ -845,13 +275,90 @@
         </div>
     </div>
 
-    <script>
-        function openModal() {
-            document.getElementById('playlistModal').style.display = 'flex';
+<script>
+function openModal() {
+    document.getElementById('playlistModal').style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('playlistModal').style.display = 'none';
+}
+
+function loadCardsFromSheet() {
+  const sheetId = "1jAbwzTYTAASmGBC7VqTC2_01sJTPaRBjZIrMH4rBTsE";
+  const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&callback=google.visualization.Query.setResponse`;
+
+  const script = document.createElement("script");
+  script.src = url;
+  document.body.appendChild(script);
+
+  window.google = window.google || {};
+  window.google.visualization = window.google.visualization || {};
+  window.google.visualization.Query = {
+    setResponse: function (response) {
+      if (!response || !response.table) {
+        console.error("No table data found in response");
+        return;
+      }
+
+      const rows = response.table.rows.map(r =>
+        r.c.map(c => (c ? (c.f || c.v || '') : ''))
+      );
+
+      const container = document.getElementById("cards-container");
+      const allCards = container.querySelectorAll(".card");
+      allCards.forEach((card, index) => {
+        if (index !== 0 && index !== allCards.length - 1) {
+          card.remove();
         }
-        function closeModal() {
-            document.getElementById('playlistModal').style.display = 'none';
-        }
-    </script>
+      });
+
+      rows.forEach(row => {
+        const [
+          gregorianDate, copticDate, instructor, lessonName,
+          witness, goal, training, verse
+        ] = row.map(cell => (cell ? cell.trim() : ''));
+
+        if (!gregorianDate) return;
+
+        const [day, month, year] = gregorianDate.split('-').map(Number);
+        if (!day || !month || !year) return;
+
+        const currentMonth = new Date().getMonth() + 1;
+        const currentYear = new Date().getFullYear();
+
+        if (month !== currentMonth || year !== currentYear) return;
+
+        const monthNames = [
+          'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
+          'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+        ];
+
+        const fullDate = `${day} ${monthNames[month - 1]} ${year} || ${copticDate}`;
+
+        const cardHtml = `
+          <div class="card">
+            <div class="date-header">${fullDate}</div>
+            <div class="title">
+              <span class="instructor">👩‍🏫(${instructor})</span><br>
+              <span>📖الدرس: ${lessonName}</span><br>
+              <span>🎯الهدف: ${goal}</span><br>
+            </div>
+            <div class="description">
+              <ul>
+                ${witness ? `<li><strong>شاهد الدرس:</strong> ${witness}</li>` : ''}
+                <li><strong>التدريب:</strong> ${training}</li>
+                <li><strong>الآية:</strong> ${verse}</li>
+              </ul>
+            </div>
+          </div>
+        `;
+        const lastCard = container.lastElementChild;
+        lastCard.insertAdjacentHTML("beforebegin", cardHtml);
+      });
+    }
+  };
+}
+</script>
 </body>
 </html>
