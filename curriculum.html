@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Curriculum</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            margin: 30px;
+            background-color: #f5f7fa;
+            direction: rtl;
+            text-align: right;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        .verse-header {
+            text-align: center;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #26a69a;
+            background-color: #e0f7fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .verse-header p {
+            margin: 0;
+            line-height: 1.5;
+        }
+        .verse-header .back-button {
+            position: absolute;
+            left: 8px; /* CHANGED: Tighter positioning */
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 8px; /* CHANGED: Smaller padding */
+            background: #0288d1;
+            border: 2px solid #d81b60;
+            border-radius: 50%;
+            width: 32px; /* CHANGED: Smaller size */
+            height: 32px; /* CHANGED: Smaller size */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+        .verse-header .back-button:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            background: #0277bd;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+            padding-bottom: 30px;
+            box-sizing: border-box; /* ADDED: Match index.html */
+        }
+        .card {
+            background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
+            border: 1px solid #b0bec5;
+            border-radius: 15px;
+            padding: 20px;
+            width: 350px;
+            min-height: 250px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .title {
+            font-size: 18px;
+            color: #d81b60;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .description {
+            font-size: 16px;
+            color: #37474f;
+            line-height: 1.6;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        .button-container a {
+            display: inline-block;
+            padding: 22px 44px;
+            background: linear-gradient(135deg, #218f84 0%, #82dbc5 100%);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            color: #f3eaed;
+            font-size: 24px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+        .button-container a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, #26a69a 0%, #8ae9d1 100%);
+        }
+        @media screen and (max-width: 1024px) {
+            body {
+                background-color: white;
+                margin: 30px; /* CHANGED: Match index.html */
+            }
+            .card {
+                background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%); /* CHANGED: Retain gradient */
+                border: 1px solid #b0bec5; /* CHANGED: Match index.html */
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* CHANGED: Retain shadow */
+                page-break-inside: avoid;
+                width: 350px; /* CHANGED: Explicitly set to match index.html */
+            }
+            .container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 25px;
+                justify-content: center;
+                padding-bottom: 20px;
+                box-sizing: border-box; /* ADDED: Match index.html */
+            }
+            .verse-header {
+                background-color: #e0f7fa !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                font-size: 18px; /* CHANGED: Slightly smaller to fit text */
+                padding: 15px; /* CHANGED: Match index.html */
+            }
+            .verse-header p {
+                margin: 0;
+                line-height: 1.5; /* CHANGED: Match index.html */
+            }
+            .verse-header .back-button {
+                padding: 8px;
+                width: 32px;
+                height: 32px;
+                background: #0288d1;
+                border-radius: 50%;
+                box-sizing: border-box;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                left: 8px; /* CHANGED: Tighter positioning */
+            }
+            .verse-header .back-button:hover {
+                background: #0277bd;
+            }
+            .button-container a {
+                padding: 15px 30px;
+                font-size: 18px;
+                box-sizing: border-box;
+            }
+        }
+        @media print {
+            body {
+                background-color: white;
+                margin: 10mm;
+            }
+            .card {
+                background: none;
+                border: 1px solid #000;
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+            .verse-header {
+                background-color: #e0f7fa !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <div id="curriculum-section">
+        <div class="verse-header">
+            <a href="index.html" class="back-button">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#d81b60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+            </a>
+            <p>مُقَدِّمًا فِي التَّعْلِيمِ نَقَاوَةً، وَوَقَارًا، وَإِخْلاَصًا، وَكَلاَمًا صَحِيحًا غَيْرَ مَلُومٍ (تي 2: 7-8)</p>
+        </div>
+        <div class="button-container">
+            <a href="https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID" target="_blank">تسجيل التقدم الشهري</a>
+        </div>
+        <div class="container">
+            <div class="card">
+                <div class="title">الوحدة الأولى: التهيئة الأساسية</div>
+                <div class="description">
+                     يمسك القلم أو لون في ايده بشكل صحيح. (نشاط: تلوين أشكال بسيطة). <br>
+                     يتتبع بخطوط بسيطة أو تلوين داخل شكل. (نشاط: تتبع خطوط مستقيمة أو دوائر). <br>
+                     يقلّد رسم بسيط (خط – دائرة – مثلث).
+                </div>
+            </div>
+            <div class="card">
+                <div class="title">الوحدة الثانية: القراءة والكتابة</div>
+                <div class="description">
+                     يتعرّف على شكل أول 4 حروف (أ، ب، ت، ث).<br>
+                     يتعرف على 3 حروف (ج، ح، خ)<br>
+                     يتعرف على حرفين (د، ذ)<br>
+                     يتعرف على 4 حروف (س، ش، ص، ض)<br>
+                     يتعرف على 4 حروف (ط، ظ، ع، غ)<br>
+                     يتعرف على 4 حروف (ف، ق، ك، ل)<br>
+                     يتعرف على 5 حروف (م، ن، ه، و، ي)<br>
+                     يكوّن مقطع بسيط (زي "با"، "رو").<br>
+                     يقرأ كلمة من مقطعين (زي "ما-ما").<br>
+                     ينسخ كلمات قصيرة من مقطعين (زي بابا, ماما).<br>
+                     يقرأ جملة بسيطة (زي "أنا أسكن في...").<br>
+                     يكتب جملة قصيرة عن نفسه بمساعدة (زي "أنا اسمي...").<br>
+                     <span style="color: #26a69a; font-weight:700;">أنشطة مقترحة: البحث عن حرف في مجموعة حروف, ربط الحرف مع كلمة يومية, بناء كلمات بسيطة من كل مجموعة بنتعلمها</span>      
+                </div>
+            </div>
+            <div class="card">
+                <div class="title">الوحدة الثالثة: قراءة وكتابة الأرقام</div>
+                <div class="description">
+                     يتعرّف على رقم 1 و2 ويفرق بينهم لما يشوفهم مع بعض.<br>
+                     يتعرّف على رقم 3 و4 و5 ويفرق بينهم<br>
+                     يتعرّف على أرقام 6 و7 و8 ويفرق بينهم.<br>
+                     يتعرّف على أرقام 9 و10 ويفرق بينهم.<br>
+                     يتعرّف على أرقام من 11 حتى 20 ويفرق بينهم.<br>
+                     يتعرّف على الأرقام من 21 إلى 50، ثم من 51 إلى 100.<br>
+                     يقرا ويكتب أرقام المئات (زي 100، 101، 102..199).<br>
+                     يقرا ويكتب باقي أرقام المئات من 200 لحد 999.<br>
+                     <span style="color: #26a69a; font-weight:700;">أنشطة مقترحة: فرز كروت للأرقام, العد على الاصابع, رسم الارقام مع اشياء بنفس العدد, كتابة تواريخ او رقم تليفون</span>      
+
+                </div>
+            </div>
+            <div class="card">
+                <div class="title">الوحدة الرابعة: العمليات الحسابية</div>
+                <div class="description">
+                     يعرف مين “أكتر” و”أقل”.<br>
+                     يطبّق الجمع في موقف بسيط (زي: معايا 2، جالي كمان 1).<br>
+                     الجمع حتى 5<br>
+                     الطرح البسيط (ياخد حاجة من مجموعة، زي 5 - 2).<br>
+                     الجمع باستخدام الأصابع حتى 10<br>
+                     يفهم مفهوم الضرب باستخدام مجموعات (زي 3 مجموعات من 2 = 6).<br>
+                     الضرب البسيط جدًا (2×2، 2×3، 3×3).<br>
+                     يوزع أشياء متساوية على مجموعات (زي توزيع 4 أقلام على شخصين = 4 ÷ 2).<br>
+                     يحسب تكلفة مجموعة مشتريات بسيطة (زي 3 أشياء بـ 5 جنيه لكل واحد).<br>
+                </div>
+            </div>
+            <div class="card">
+                <div class="title">الوحدة الخامسة: قيمة الفلوس</div>
+                <div class="description">
+                     يميز ويسمي قيمة الأوراق النقدية (5، 10، 20 جنيه)<br>
+                     يجمع فلوس بسيطة (حتى 20 جنيه) باستخدام أشياء حقيقية.<br>
+                     يحسب باقي الفلوس في شراء بسيط (زي دفع 20 لشيء بـ 15).<br>
+                </div>
+            </div>
+            <div class="card">
+                <div class="title">الوحدة السادسة: قراءة الساعة والوقت</div>
+                <div class="description">
+                     يميز النهار والليل باستخدام الشمس والقمر.<br>
+                     يعرف فكرة “الساعة” (شكل الساعة – العقارب).<br>
+                     يعرف الساعة على كل ساعة (زي 1:00، 2:00...).<br>
+                     يربط الساعة بأنشطة يومية (زي الساعة 7: وقت الأكل).<br>
+                     يقرأ ساعة مع دقائق (زي 1:15).<br><br>
+                     <span style="color: #26a69a; font-weight:700;">أنشطة مقترحة: استخدام ساعة وضبطها او قرائتها بنفسه</span>      
+                </div>
+            </div>
+            <div class="card">
+                <div class="title">الوحدة السابعة: الوعي بالتواريخ والمناسبات</div>
+                <div class="description">
+                     يعرف أيام الأسبوع.<br>
+                     ربط ايام الاسبوع بأنشطة يومية (زي 'الثلاثاء: الخدمة').<br>
+                     يعرف الشهور الميلادية.<br>
+                     يعرف مواعيد ثابتة (زي يوم الخدمة – وقت النوم – وقت الأكل).<br>
+                     يربط التواريخ بالمناسبات (زي الاعياد و 'عيد ميلاده').<br>
+                     يخطط يومه باستخدام تواريخ وساعة (زي 'الثلاثاء: خدمة الساعة 7').<br>
+                </div>
+            </div>
+            <div class="card">
+                <div class="title">الوحدة الثامنة: معرفة البيانات الشخصية</div>
+                <div class="description">
+                     يقول بياناته الشخصية (اسم كامل، عنوان، رقم تليفون ولي الأمر).<br>
+                     يعرف مواعيد أدويته إن وجدت.<br>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        const description = card.querySelector('.description');
+        if (description) {
+            const lines = description.innerHTML.split('<br>').map(line => line.trim()).filter(line => line);
+            const numberedLines = lines.map(line => {
+            if (line.startsWith('<span') || line.startsWith('أنشطة مقترحة')) {
+                    return line; /* CHANGED: Skip numbering for lines starting with "أنشطة مقترحة" or <span> */
+                }
+                return `📌 ${line}`
+                });
+            description.innerHTML = numberedLines.join('<br>');
+        }
+    });
+</script>
+</body>
+</html>
