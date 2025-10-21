@@ -129,6 +129,35 @@
         .description li {
             margin-bottom: 8px;
         }
+        .awareness-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px dashed #26a69a;
+        }
+        .awareness-section .awareness-title {
+            font-size: 16px;
+            color: #0288d1;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .awareness-section .awareness-title::before {
+            content: '💡';
+            font-size: 18px;
+        }
+        .awareness-section .awareness-content {
+            font-size: 16px;
+            color: #455a64;
+            line-height: 1.5;
+        }
+        .awareness-section .awareness-instructor {
+            font-size: 18px;
+            color: #d81b60;
+            margin-top: 5px;
+            font-weight: 600;
+        }
         .verse-header {
             text-align: center;
             font-family: 'Tajawal', sans-serif;
@@ -144,6 +173,33 @@
         .verse-header p {
             margin: 0;
             line-height: 1.5;
+        }
+        
+        /* Loading Spinner */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+            gap: 15px;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #e0f7fa;
+            border-top: 4px solid #26a69a;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loading-text {
+            color: #26a69a;
+            font-size: 18px;
+            font-weight: 700;
         }
 
         /* UNIFIED MOBILE STYLES - Matches curriculum.html */
@@ -277,20 +333,22 @@
         </div>
     </div>
     
-    <!-- DYNAMIC CARDS INSERTED BY JAVASCRIPT -->
-    
-    <!-- PLAYGROUND CARD -->
-    <div class="card playground">
-        <div class="date-header">٢٨ أكتوبر ٢٠٢٥</div>
-        <div class="title">ملعب <span>🏃🏻‍♂️🏐</span></div>
+    <!-- Loading spinner -->
+    <div class="loading-container" id="loading">
+        <div class="spinner"></div>
+        <!-- <div class="loading-text">جاري تحميل البيانات...</div> -->
     </div>
+    
+    <!-- DYNAMIC CARDS (regular and playground) INSERTED BY JAVASCRIPT IN DATE ORDER -->
 </div>
+
         <div id="playlistModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center;">
         <div style="background-color: white; padding: 20px; border-radius: 10px; position: relative; width: 90%; max-width: 800px;">
             <button onclick="closeModal()" style="position: absolute; top: 10px; right: 10px; background-color: #d81b60; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer; font-family: 'Tajawal', sans-serif;">إغلاق</button>
             <iframe width="100%" height="450" src="https://www.youtube.com/embed/videoseries?list=PLv8B1Nm0ZyI8hWPmtEpIvYS4baUhwzAdU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
+
 <script>
 function openModal() {
     document.getElementById('playlistModal').style.display = 'flex';
@@ -312,8 +370,13 @@ function loadCardsFromSheet() {
   window.google.visualization = window.google.visualization || {};
   window.google.visualization.Query = {
     setResponse: function (response) {
+      const loadingElement = document.getElementById('loading');
+      
       if (!response || !response.table) {
         console.error("No table data found in response");
+        if (loadingElement) {
+          loadingElement.innerHTML = '<div class="loading-text" style="color: #d81b60;">خطأ في تحميل البيانات</div>';
+        }
         return;
       }
 
@@ -322,56 +385,117 @@ function loadCardsFromSheet() {
       );
 
       const container = document.getElementById("cards-container");
-      const allCards = container.querySelectorAll(".card");
-      allCards.forEach((card, index) => {
-        if (index !== 0 && index !== allCards.length - 1) {
-          card.remove();
-        }
-      });
+      
+      // Collect all cards with their dates for sorting
+      const allCardsToInsert = [];
 
       rows.forEach(row => {
         const [
           gregorianDate, copticDate, instructor, lessonName,
-          witness, goal, training, verse
+          witness, goal, training, verse, awarenessLesson, awarenessInstructor
         ] = row.map(cell => (cell ? cell.trim() : ''));
 
-        if (!gregorianDate) return;
+        if (!gregorianDate || !lessonName) return;
 
         const [day, month, year] = gregorianDate.split('-').map(Number);
         if (!day || !month || !year) return;
 
-        const currentMonth = new Date().getMonth() + 1;
-        const currentYear = new Date().getFullYear();
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth() + 1;
+        const currentYear = currentDate.getFullYear();
+        const currentDay = currentDate.getDate();
 
-        if (month !== currentMonth || year !== currentYear) return;
+        // Calculate if we should show next month (7 days before end of month)
+        const daysInCurrentMonth = new Date(currentYear, currentMonth, 0).getDate();
+        const daysUntilEndOfMonth = daysInCurrentMonth - currentDay;
+        const showNextMonth = daysUntilEndOfMonth <= 7;
+
+        // Determine which month to show
+        let shouldShowThisCard = false;
+
+        if (showNextMonth) {
+            // Show only next month's cards
+            const nextMonth = currentMonth === 12 ? 1 : currentMonth + 1;
+            const nextMonthYear = currentMonth === 12 ? currentYear + 1 : currentYear;
+            if (month === nextMonth && year === nextMonthYear) {
+                shouldShowThisCard = true;
+            }
+        } else {
+            // Show only current month's cards
+            if (month === currentMonth && year === currentYear) {
+                shouldShowThisCard = true;
+            }
+        }
+
+        if (!shouldShowThisCard) return;
 
         const monthNames = [
           'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
           'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
         ];
 
-        const fullDate = `${day} ${monthNames[month - 1]} ${year} || ${copticDate}` + ' 1742';
+        const fullDate = `${day} ${monthNames[month - 1]} ${year} || ${copticDate} 1742`;
+        const sortKey = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
-        const cardHtml = `
-          <div class="card">
-            <div class="date-header">${fullDate}</div>
-            <div class="title">
-              <span class="instructor">👩‍🏫(${instructor})</span><br>
-              <span>📖الدرس: ${lessonName}</span><br>
-              <span>🎯الهدف: ${goal}</span><br>
+        // Check if this is a playground card (lessonName starts with "### ")
+        if (lessonName.startsWith('### ')) {
+          const playgroundTitle = lessonName.substring(4); // Remove "### " prefix
+          const playgroundHTML = `
+            <div class="card playground">
+              <div class="date-header">${fullDate}</div>
+              <div class="title">${playgroundTitle}</div>
             </div>
-            <div class="description">
-              <ul>
-                ${witness ? `<li><strong>شاهد الدرس:</strong> ${witness}</li>` : ''}
-                <li><strong>التدريب:</strong> ${training}</li>
-                <li><strong>الآية:</strong> ${verse}</li>
-              </ul>
+          `;
+          allCardsToInsert.push({ html: playgroundHTML, sortKey });
+        } else {
+          // Regular card
+          const awarenessHTML = (awarenessLesson || awarenessInstructor) ? `
+            <div class="awareness-section">
+              <div class="awareness-title">درس التوعية</div>
+              <div class="awareness-content">${awarenessLesson || ''}</div>
+              ${awarenessInstructor ? `<div class="awareness-instructor">👤 ${awarenessInstructor}</div>` : ''}
             </div>
-          </div>
-        `;
-        const lastCard = container.lastElementChild;
-        lastCard.insertAdjacentHTML("beforebegin", cardHtml);
+          ` : '';
+
+          const cardHtml = `
+            <div class="card">
+              <div class="date-header">${fullDate}</div>
+              <div class="title">
+                <span class="instructor">👩‍🏫(${instructor})</span><br>
+                <span>📖الدرس: ${lessonName}</span><br>
+                <span>🎯الهدف: ${goal}</span><br>
+              </div>
+              <div class="description">
+                <ul>
+                  ${witness ? `<li><strong>شاهد الدرس:</strong> ${witness}</li>` : ''}
+                  <li><strong>التدريب:</strong> ${training}</li>
+                  <li><strong>الآية:</strong> ${verse}</li>
+                </ul>
+              </div>
+              ${awarenessHTML}
+            </div>
+          `;
+          allCardsToInsert.push({ html: cardHtml, sortKey });
+        }
       });
+
+      // Sort all cards by date
+      allCardsToInsert.sort((a, b) => a.sortKey.localeCompare(b.sortKey));
+
+      // Insert cards in sorted order after loading spinner
+      const loadingElement2 = document.getElementById('loading');
+      allCardsToInsert.forEach(card => {
+        if (loadingElement2) {
+          loadingElement2.insertAdjacentHTML('beforebegin', card.html);
+        }
+      });
+      
+      // Remove loading spinner after cards are loaded
+      if (loadingElement2) {
+        loadingElement2.remove();
+      }
+      
+      console.log("✅ Cards loaded successfully");
     }
   };
 }
