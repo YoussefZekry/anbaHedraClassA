@@ -139,16 +139,18 @@
     /* ── VERSE BANNER ── */
     .verse-banner {
       margin: 20px 20px 0;
-      padding: 16px 20px;
+      padding: 10px 16px;
       background: var(--teal-light);
       border: 1px solid var(--teal);
       border-radius: var(--radius);
       color: var(--teal-dark);
-      font-size: 15px; font-weight: 500;
-      line-height: 1.7;
+      font-size: 13px; font-weight: 500;
+      line-height: 1.4;
       text-align: center;
       position: relative;
       overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
     .verse-banner::before {
       content: '';
@@ -170,10 +172,10 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px;
+      padding: 14px;
       text-decoration: none;
       color: var(--text);
-      display: flex; flex-direction: column; align-items: flex-start; gap: 8px;
+      display: flex; flex-direction: row; align-items: center; gap: 10px;
       transition: all var(--transition);
       box-shadow: var(--shadow-sm);
       cursor: pointer;
@@ -191,10 +193,11 @@
     .qa-btn:hover::before { opacity: 0.05; }
     .qa-btn:active { transform: translateY(-1px); }
     .qa-icon {
-      width: 36px; height: 36px;
-      border-radius: var(--radius-sm);
+      width: 28px; height: 28px;
+      border-radius: var(--radius-xs);
       display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
+      font-size: 14px;
+      flex-shrink: 0;
     }
     .qa-icon.teal { background: var(--teal-light); }
     .qa-icon.pink { background: var(--pink-light); }
@@ -284,7 +287,7 @@
       text-transform: uppercase; letter-spacing: 0.06em;
       color: var(--accent);
     }
-    .awareness-bar .aw-content { font-size: 13px; color: var(--text2); }
+    .awareness-bar .aw-content { font-size: 15px; font-weight: 700; color: var(--text2); }
     .awareness-bar .aw-person {
       display: inline-flex; align-items: center; gap: 5px;
       background: var(--pink-light);
@@ -499,8 +502,7 @@
 
     <!-- Verse banner -->
     <div class="verse-banner">
-      مُقَدِّمًا فِي التَّعْلِيمِ نَقَاوَةً، وَوَقَارًا، وَإِخْلاَصًا، وَكَلاَمًا صَحِيحًا غَيْرَ مَلُومٍ
-      <br><small style="font-size:12px;opacity:0.7;">(تي 2: 7-8)</small>
+      مُقَدِّمًا فِي التَّعْلِيمِ نَقَاوَةً، وَوَقَارًا، وَإِخْلاَصًا، وَكَلاَمًا صَحِيحًا غَيْرَ مَلُومٍ — <small style="opacity:0.7;">(تي 2: 7-8)</small>
     </div>
 
     <!-- Quick actions -->
@@ -725,14 +727,14 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
           cards.push({ sortKey, html: `
             <div class="playground-card">
               <div class="pg-date">📅 ${fullDate}</div>
-              <div class="pg-title">⛹️ ${lessonName.slice(4)}</div>
+              <div class="pg-title">${lessonName.slice(4)}</div>
             </div>` });
         } else {
           const awareness = (awLesson || awInstructor) ? `
             <div class="awareness-bar">
               <span class="aw-label">💡 درس التوعية</span>
               ${awInstructor ? `<span class="aw-person">👤 ${awInstructor}</span>` : ''}
-              <span class="aw-content">${awLesson || ''}</span>
+              <span class="aw-content">📖 ${awLesson || ''}</span>
             </div>` : '';
 
           cards.push({ sortKey, html: `
